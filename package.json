@@ -1,0 +1,29 @@
+{
+  "name": "little_link_inspector",
+  "version": "1.0.0",
+  "description": "inspect Bit.ly links",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "express-recaptcha": "^2.3.0",
+    "mysql2": "^1.4.2",
+    "sequelize": "^4.8.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gatan45/LittleLinkInspector.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gatan45/LittleLinkInspector/issues"
+  },
+  "homepage": "https://github.com/gatan45/LittleLinkInspector#readme"
+}
