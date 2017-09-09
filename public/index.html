@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    	<link rel="stylesheet" href="/css/styles.css">
+    	<link rel="stylesheet" href="css/styles.css">
 
 		<title>Little Link Inspector</title>
 </head>
@@ -16,7 +16,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div id="banner">
-					<h1>Little Link Inspector</h1>
+					<h1>LITTLE LINK INSPECTOR</h1>
 				</div>
 			</div>
 		</div>
@@ -26,7 +26,7 @@
 	<!--Input-->
 		<div class="row">
 		    <div class="col-md-12">
-		    <p><strong>Insert your Bit.ly link here!</strong></p>
+		    <p><strong>Insert your bit.ly link here!</strong></p>
 				<form class="input" action="/" method="post">
 		        	<textarea name="bitlyIn" rows="4" cols="40"></textarea>
 		       		<button id="submit" type="submit" class="btn btn-primary center-block">Submit</button>
@@ -35,13 +35,13 @@
 		</div>
 	<br><br><br><br>
 
-	
+
 	<!--Response-->
 		<div class="row">
 			<div class="col-md-12">
-				<h2>Burger Graveyard :(</h2>
-					{{#each this.devoured}}
-						{{this.burger_name}}
+				<h2>Actual URL</h2>
+					{{#each this.linkFull}}
+						{{this.link_full}}
 						<br>
 					{{/each}}
 			</div>
