@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    	<link rel="stylesheet" href="css/styles.css">
+
+		<title>Little Link Inspector</title>
+</head>
+
+<body>
+
+
+<div class="container text-center">
+	<!--Header-->
+		<div class="row">
+			<div class="col-md-12">
+				<div id="banner">
+					<h1>LITTLE LINK INSPECTOR</h1>
+				</div>
+			</div>
+		</div>
+	<br><br><br><br>
+
+
+	<!--Input-->
+		<div class="row">
+		    <div class="col-md-12">
+		    <p><strong>Insert your bit.ly link here!</strong></p>
+				<form class="input" action="/" method="post">
+		        	<textarea name="bitlyIn" rows="4" cols="40"></textarea>
+		       		<button id="submit" type="submit" class="btn btn-primary center-block">Submit</button>
+				</form>
+		    </div>
+		</div>
+	<br><br><br><br>
+
+
+	<!--Response-->
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Actual URL</h2>
+					{{#each this.linkFull}}
+						{{this.link_full}}
+						<br>
+					{{/each}}
+			</div>
+		</div>
+
+</div>
+		
+
+
+
+
+</body>
+</html>
