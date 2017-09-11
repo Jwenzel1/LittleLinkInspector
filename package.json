@@ -5,13 +5,13 @@
   "main": "server.js",
   "dependencies": {
     "bitly": "^4.1.1",
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.18.0",
     "express": "^4.15.4",
     "express-handlebars": "^3.0.0",
     "express-recaptcha": "^2.3.0",
     "mysql2": "^1.4.2",
     "node-virustotal": "^2.4.2",
-    "sequelize": "^4.8.2"
+    "sequelize": "^4.8.3"
   },
   "devDependencies": {},
   "scripts": {
