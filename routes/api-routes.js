@@ -100,17 +100,17 @@ module.exports = function(app){
 // 		});
 // 	}	
 
-function findAllTest(){
-		db.Links.findAll({
-		  where: {
-				short_link: ""
-			}	
+// function findAllTest(){
+// 		db.Links.findAll({
+// 		  where: {
+// 				short_link: ""
+// 			}	
 
-		}).then(function(dbLink){
-				console.log(dbLink)
-				// console.log(dbLink[0].long_link);
-		});
-	}	
+// 		}).then(function(dbLink){
+// 				console.log(dbLink)
+// 				// console.log(dbLink[0].long_link);
+// 		});
+// 	}	
 // 	function updateTest(){
 // 		db.Links.update({
 // 			safe:true
@@ -125,5 +125,5 @@ function findAllTest(){
 
 // 		setTimeout(createTest, 3000);
 //		setTimeout(findAllTest, 6000);
-findAllTest();
+// findAllTest();
 // 		setTimeout(updateTest, 9000)
