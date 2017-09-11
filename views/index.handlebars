@@ -15,7 +15,7 @@
         <div class="col-md-12">
         <p><strong>Insert your bit.ly link here!</strong></p>
         <form class="input" action="/" method="post">
-              <textarea name="bitlyIn" rows="4" cols="40"></textarea>
+              <textarea name="bitlyIn" id="short_link" rows="4" cols="40"></textarea>
               <button id="submit" type="submit" class="btn btn-primary center-block">Submit</button>
         </form>
         </div>
@@ -27,8 +27,22 @@
     <div class="row">
       <div class="col-md-12">
         <h2>Actual URL</h2>
-          {{#each this.linkFull}}
-            {{this.link_full}}
+          {{#each this.Links}}
+              The bit.ly link: 
+              <div id="inputBitly"></div>
+              {{!-- <a href={{this.short_link}}>{{this.short_link}}</a> --}}
+            <br>
+              The full link: 
+              <div id="inputExtended"></div>
+              {{!-- <a href={{this.long_link}}>{{this.long_link}}</a> --}}
+            <br>
+              The Domain name: 
+              <div id="inputDomain"></div>
+              {{!-- <a href={{this.domain_name}}>{{this.domain_name}}</a> --}}
+            <br>
+              This site is safe: 
+              <div id="inputBoolSafe"></div>
+              {{!-- {{this.safe}} --}}
             <br>
           {{/each}}
       </div>
