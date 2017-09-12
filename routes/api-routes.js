@@ -17,7 +17,7 @@ var short_link
 var long_link; //the full url of the bit.ly link
 var domain; //used for storing the object returned by url.parse
 var domain_name; //the hostname of the given url
-var malicious; //boolean that is true if malicious, false if safe
+var malicious = false; //boolean that is true if malicious, false if safe
 var info; //returns all the data above
 
 
@@ -29,7 +29,6 @@ module.exports = function(app){
 //it then creates a record of the bit.ly link with the full URL, domain name, and whether or not its malicious
 //if a record is found in the database, return all its data
 	app.get("/api/links/:link", function(req, res){
-		console.log(req.params);
 		db.Links.findAll({ //searchs the database for 
 		  where: {
 			   short_link: req.params.link 
@@ -43,13 +42,27 @@ module.exports = function(app){
 				    long_link = response.data.expand[0].long_url;
 				    domain = url.parse(long_link, true); //parses the full URL to get various information about the link
 				    domain_name = domain.host; // assigns the host (domain) to domain_name
-				    console.log(long_link);
+
 				    //con.UrlEvaluation is a little bit slower than doing a submit and retrieve, so we opted to do it this way
+				    console.log("");
 				    console.log(long_link + " has been submitted for scanning");
 			    	con.UrlEvaluation(long_link, function(data){ //sends the long_link for scanning
-			    	  malicious = data.scans["Google Safebrowsing"].detected;
+			    	  // malicious = data.scans["Google Safebrowsing"].detected;
+			    	  
+			    	  for(scanner in data.scans){
+			    	  	
+			    	  	if(data.scans[scanner].detected)
+			    	  	{
+			    	  		
+			    	  		malicious = data.scans[scanner].detected;
+			    	  		console.log("")
+			    	  		console.log(scanner + " determined that: " + long_link + " is malicious");
+			    	  		break;
+			    	  	}
+	
+			    	  }
 					  console.log("");
-					  console.log(long_link + " is malicious: " + malicious);
+					  
 					  
 						db.Links.create({ //creates the record for the bitly link after the bitly API returns data, and the URL has been scanned
 							short_link: short_link,
@@ -61,7 +74,7 @@ module.exports = function(app){
 							console.log("Bit.ly link: " + dbLink.dataValues.short_link);
 							console.log("Full URL: " + dbLink.dataValues.long_link);
 							console.log("Domain name: " + dbLink.dataValues.domain_name);
-							console.log("is Malicious: " + dbLink.dataValues.malicious);
+							console.log("Malicious: " + dbLink.dataValues.malicious);
 
 							var info = {
 								short_link: short_link,
@@ -74,7 +87,6 @@ module.exports = function(app){
 						});
 							console.error(err);
 					}, function(error){
-						console.log("woot error");
 					}); //end of submitUrlForScanning method
 
 			  // }, function(error) { 
