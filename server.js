@@ -1,6 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var virusTotal = require("node-virustotal");
+var vt = require("node-virustotal");
 var Bitly = require('bitly');
 
 var PORT = process.env.PORT || 3000;
@@ -24,7 +24,7 @@ app.set("view engine", "handlebars");
 // Import routes and give the server access to them.
 require("./routes/api-routes.js")(app);
 
-db.sequelize.sync({ force: true }).then(function() {
+db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });

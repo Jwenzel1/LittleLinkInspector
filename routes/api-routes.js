@@ -3,89 +3,105 @@ var url = require('url');
 var vt = require("node-virustotal");
 var API_key = "c24164a9ec3b27c30f9ac9474edf2aced8b8bbcf";
 var bitly = new Bitly(API_key);
-var bitlyLink; //the given bit.ly link
+
+ //the given bit.ly link
 //reqires our Links model
+
+var con = vt.MakePublicConnection();
+con.setKey("046ace4470931392168279685fbff5a2bc4a6645f019796c04f2b9b8dbc10bec");
+con.setDelay(15000);
+
 var db = require("../models");
 // var bitly = require("../javascript/bitly.js");
-var long_url; //the full url of the bit.ly link
+var short_link
+var long_link; //the full url of the bit.ly link
 var domain; //used for storing the object returned by url.parse
 var domain_name; //the hostname of the given url
+var malicious; //boolean that is true if malicious, false if safe
+var info; //returns all the data above
 
 
 module.exports = function(app){
 
 //GET route for finding a bit.ly long_link in the database when a short_link is entered
-//can also get any other information for that bit.ly link in the database
-	app.get("/api/links:link", function(req, res){
-
-		db.Links.findAll({
+//if nothing is found in the database, it calls to the bit.ly API and gets the full URL and domain name
+//then it scans the full URL for malicious software
+//it then creates a record of the bit.ly link with the full URL, domain name, and whether or not its malicious
+//if a record is found in the database, return all its data
+	app.get("/api/links/:link", function(req, res){
+		console.log(req.params);
+		db.Links.findAll({ //searchs the database for 
 		  where: {
-			   short_link: req.params.link
+			   short_link: req.params.link 
 		  }
 		}).then(function(dbLink){
-			if(dbLink.length == 0){
-				bitly.expand('http://bit.ly/2whIn2N')//replace with bitlyLink
+			if(dbLink.length == 0){ //sequelize returns an empty array if it cannot find it in the database
+				bitly.expand(req.params.link)//bitly API call to get long_link of the bit.ly link
 				  .then(function(response) {
 
+				  	short_link = response.data.expand[0].short_url;
 				    long_link = response.data.expand[0].long_url;
-				    short_link = response.data.expand[0].short_url;
-				    domain = url.parse(long_url, true);
-				    domain_name = domain.host;
-
-						db.Links.create({
+				    domain = url.parse(long_link, true); //parses the full URL to get various information about the link
+				    domain_name = domain.host; // assigns the host (domain) to domain_name
+				    console.log(long_link);
+				    //con.UrlEvaluation is a little bit slower than doing a submit and retrieve, so we opted to do it this way
+				    console.log(long_link + " has been submitted for scanning");
+			    	con.UrlEvaluation(long_link, function(data){ //sends the long_link for scanning
+			    	  malicious = data.scans["Google Safebrowsing"].detected;
+					  console.log("");
+					  console.log(long_link + " is malicious: " + malicious);
+					  
+						db.Links.create({ //creates the record for the bitly link after the bitly API returns data, and the URL has been scanned
 							short_link: short_link,
 							long_link: long_link,
-							domain_name: domain_name
+							domain_name: domain_name,
+							malicious: malicious
 						}).then(function(dbLink){
-							console.log(dbLink[0].short_link);
-							console.log(dbLink[0].long_link);
-							console.log(dbLink[0].domain_name);
+							console.log("")
+							console.log("Bit.ly link: " + dbLink.dataValues.short_link);
+							console.log("Full URL: " + dbLink.dataValues.long_link);
+							console.log("Domain name: " + dbLink.dataValues.domain_name);
+							console.log("is Malicious: " + dbLink.dataValues.malicious);
+
 							var info = {
 								short_link: short_link,
 								long_link: long_link,
-								domain_name: domain_name
+								domain_name: domain_name,
+								malicious: malicious
 							}
+
 							res.json(info);
 						});
+							console.error(err);
+					}, function(error){
+						console.log("woot error");
+					}); //end of submitUrlForScanning method
 
-				  }, function(error) {
-				     throw error;
-				  });
+			  // }, function(error) { 
+			  //    throw error;
+			  // 	}); //end of the .then function for bit.ly expand method
+
+			  
+				});//Closes the bit.ly expand method
 			}
 			else{
+			    long_link = dbLink[0].short_link;
+			    short_link = dbLink[0].long_link;
+			    domain_name = dbLink[0].domain_name;
+			    malicious = dbLink[0].malicious;
+						
 				var info = {
-								short_link: short_link,
-								long_link: long_link,
-								domain_name: domain_name
-							}
-							res.json(info);
+					short_link: short_link,
+					long_link: long_link,
+					domain_name: domain_name,
+					malicious: malicious
+				}
+				res.json(info); //gives a response with the data 
 			}
-		});
-	})
-//POST route for inserting a bit.ly link into the database
-	app.post("api/links", function(req, res){
-
-		db.Links.create({
-			short_link: req.body.short_link,
-			long_link: req.body.long_link,
-			domain_name: req.body.domain_name
-		}).then(function(dbLink){
-			console.log(dbLink[0].short_link);
-			console.log(dbLink[0].long_link);
-			console.log(dbLink[0].domain_name);
-			res.json(dbLink);
-		});
-	});
-//PUT route for updating the "safe" boolean of a bit.ly link, 1 for true, 0 for false
-	app.put("api/links/:safe", function(req, res){
-
-		db.Links.update({
-			safe: req.body.safe
-		}).then(function(dbLink){
-			res.json(dbLink);
-		});
-	});
+		}); //end of the .then function of the sequelize findAll method
+	}); //end of the GET request
 }
+
 
 // console.log(long_url, domain_name)
 // //test functions for each of the sequelize queries
@@ -125,5 +141,25 @@ module.exports = function(app){
 
 // 		setTimeout(createTest, 3000);
 //		setTimeout(findAllTest, 6000);
-// findAllTest();
+// 		findAllTest();
 // 		setTimeout(updateTest, 9000)
+		// urlScanTest();
+	// 	long_link = "google.com"
+	// con.submitUrlForScanning(long_link, function(data){ //sends the long_link for scanning
+	// 	  console.log(long_link + " has been submitted for scanning");
+	// 	  console.log("")	
+	// 	  // console.dir(data);
+
+	// 	  con.retrieveUrlAnalysis(long_link, function(data){ //keeps checking to see if the submitted URL has been analyzed then returns the result
+	// 	  	malicious = data.scans["Google Safebrowsing"].detected;
+	// 	  	console.log(long_link + " has been sucessfully scanned");
+	// 	  	console.log("")
+	// 		// console.dir(data);
+	// 		console.log("Result from Google Safebrowsing: Malicious = " + data.scans["Google Safebrowsing"].detected);
+
+	// 	  }, function(err){
+	// 	    console.error(err);
+	// 	  }); //end of retrieveUrlAnalysis method
+	// 	 }, function(error) { 
+	// 		     throw error;
+	// });
