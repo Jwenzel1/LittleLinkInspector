@@ -1,5 +1,6 @@
 body{
- background-image: url("../images/links.svg");
+    background-image: url("../images/links.svg");
+    font-family: 'Roboto', sans-serif;
     background-size: 10%;
     background-repeat: repeat;
 }
@@ -65,8 +66,12 @@ footer {
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #efefef;
+  background-color: black;
   text-align: center;
+}
+
+#footerTitle {
+    color: white;
 }
 
 th {
@@ -77,5 +82,6 @@ th {
 table {
 	table-layout: fixed;
 	width: 100%;
+  color: white;
 }
 
