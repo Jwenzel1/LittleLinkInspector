@@ -13,19 +13,13 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING, 
 			allowNull: false,
 		},
-		safe: {
+		malicious: {
 			type: DataTypes.BOOLEAN,
-			defaultValue: false
+			defaultValue: true //we assume all links are malicious until proven safe
 			//this is a BOOLEAN which is determined via virus total node package
 		},
 	});
 
 	return Links;
 }
-	// Links.associate = function(models) {
-	// 	//creates an association saying that
-	// 	Links.hasMany(models.Votes, {
-	// 		foreignKey: short_link, 
-			
-	// 	});
-	// }
+

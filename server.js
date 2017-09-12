@@ -1,6 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var virusTotal = require("node-virustotal");
+var vt = require("node-virustotal");
 var Bitly = require('bitly');
 
 var PORT = process.env.PORT || 3000;
