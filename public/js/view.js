@@ -17,7 +17,7 @@ $("submit").on("click", function(event) {
 			console.log("You have entered a valid 'bit.ly' address at: " + bitlyIn + "!");
 
 			//API get on what was submitted
-			$.get("/API/Links/" + Bitly, function(data) {
+			$.get("/api/links/" + Bitly, function(data) {
 				//Bitly long link
 				console.log(data);
 				//Add data points to the page in the correct way...
@@ -30,15 +30,31 @@ $("submit").on("click", function(event) {
 
 function renderLinks(data) {
 	if (data.length !==0) {
-		$("#").empty();
-		$("#").show();
+		$("#allLinkRes").empty();
+		$("#allLinkRes").show();
 
 		for (var i=0; i<data.length; i++) {
 			var div = $("<div>");
 
-			div.append("");
+				// bitly link
+			div.append("<h3>" + data[i].short_link + "</>");
 
-			$("#").append(div);
+				// full link
+			div.append("<p>Full link: " + data[i].long_link + "</p>");
+
+				// domain name
+			div.append("<p>Domain name: " + data[i].domain + "</p>");
+
+				// Safe/not bool
+			if (data[i].safe == 1) {
+				div.append("<p>This site is safe.</p>");
+				div.append("<i class="fa fa-check-circle" aria-hidden="true"></i>");
+			} else {
+				div.append("<p>This site is not safe.</p>");
+				div.append("<i class="fa fa-times-circle" aria-hidden="true"></i>");
+			}
+
+			$("#allLinkRes").append(div);
 		};
 	};
 };

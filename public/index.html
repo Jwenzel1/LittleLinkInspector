@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     	<link rel="stylesheet" href="css/styles.css">
 
 		<title>Little Link Inspector</title>
@@ -40,10 +41,12 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h2>Actual URL</h2>
-					{{#each this.linkFull}}
+					<div id="allLinkRes"></div>
+
+					<!-- {{#each this.linkFull}}
 						{{this.link_full}}
 						<br>
-					{{/each}}
+					{{/each}} -->
 			</div>
 		</div>
 
