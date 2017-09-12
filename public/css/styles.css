@@ -11,7 +11,6 @@ textarea {
 	background: rgba(250, 250, 250, .8);
 }
 
-
 #banner {
 	padding: 1em;
 	height: 70%;
@@ -30,7 +29,6 @@ label,#footerTitle {
     font-size: .8em;
     padding: 8px;
     float: left;
-   
 }
 
 #submit:link {
@@ -46,8 +44,6 @@ label,#footerTitle {
     background-color: #000000; 
     color: white;
 }
-
-
 
 #gifs {
 	width: 130px;
@@ -66,7 +62,6 @@ footer {
 th {
 	padding: .6em;
 	text-align:center
-
 }
 
 table {
