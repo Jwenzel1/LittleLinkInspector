@@ -8,7 +8,7 @@ var path = require("path");
 module.exports = function(app) {
 	//Home page INDEX.HTML
 	app.get("/", function(req, res) {
-		res.sendFile(path.join(__dirname, "../public/index.html")
+		res.sendFile(path.join(__dirname, "./public/index.html")
 	});
 
 	//Home page HANDLEBARS

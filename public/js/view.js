@@ -1,13 +1,15 @@
-src="https://code.jquery.com/jquery-1.10.2.js"
+// src="https://code.jquery.com/jquery-1.10.2.js"
 // ==========================================================================================
 // ==========================================================================================
 
-$("submit").on("click", function(event) {
+$("#submit").on("click", function(event) {
 	event.preventDefault();
+	console.log(event);
 
-	var bitlyIn = $("#short_link").val().trim();
+	var bitlyIn = $("#user-input").val().trim();
+	console.log(bitlyIn);
 
-	if (bitlyIn.length() == 0) {
+	if (bitlyIn.length == 0) {
 		//Nothing submitted
 		console.log("Error: no link submitted");
 
@@ -21,7 +23,7 @@ $("submit").on("click", function(event) {
 			console.log("You have entered a valid 'bit.ly' address at: " + bitlyIn + "!");
 
 			//API get on what was submitted
-			$.get("/api/links/" + Bitly, function(data) {
+			$.get("/api/links/" + encodeURIComponent(bitlyIn), function(data) {
 				//Bitly long link
 				console.log(data);
 				//Add data points to the page in the correct way...
@@ -37,29 +39,29 @@ function renderLinks(data) {
 		$("#allLinkRes").empty();
 		$("#allLinkRes").show();
 
-		for (var i=0; i<data.length; i++) {
+	
 			var div = $("<div>");
 
 				// bitly link
-			div.append("<h3>" + data[i].short_link + "</>");
+			div.append($("<h3>" + data.short_link + "</h3>"));
 
 				// full link
-			div.append("<p>Full link: " + data[i].long_link + "</p>");
+			div.append($("<p>Full link: " + data.long_link + "</p>"));
 
 				// domain name
-			div.append("<p>Domain name: " + data[i].domain + "</p>");
+			div.append($("<p>Domain name: " + data.domain_name + "</p>"));
 
 				// Safe/not bool
-			if (data[i].safe == 0) {
-				div.append("<p>This site is safe.</p>");
-				div.append("<i class="fa fa-check-circle" aria-hidden="true"></i>");
+			if (data.malicious == 0) {
+				div.append($("<p>This site is safe.</p>"));
+				div.append($("<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i>"));
 			} else {
-				div.append("<p>This site is not safe.</p>");
-				div.append("<i class="fa fa-times-circle" aria-hidden="true"></i>");
+				div.append($("<p>This site is not safe.</p>"));
+				div.append($("<i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>"));
 			}
 
 			$("#allLinkRes").append(div);
-		};
+		
 	};
 };
 
