@@ -1,3 +1,7 @@
+src="https://code.jquery.com/jquery-1.10.2.js"
+// ==========================================================================================
+// ==========================================================================================
+
 $("submit").on("click", function(event) {
 	event.preventDefault();
 
@@ -46,7 +50,7 @@ function renderLinks(data) {
 			div.append("<p>Domain name: " + data[i].domain + "</p>");
 
 				// Safe/not bool
-			if (data[i].safe == 1) {
+			if (data[i].safe == 0) {
 				div.append("<p>This site is safe.</p>");
 				div.append("<i class="fa fa-check-circle" aria-hidden="true"></i>");
 			} else {
@@ -60,7 +64,19 @@ function renderLinks(data) {
 };
 
 
-
+// footer on hover event
+// $( "footerTitle" )
+//   .filter( ":odd" )
+//     .hide()
+//   .end()
+//   .filter( ":even" )
+//     .hover(function() {
+//       $( this )
+//         .toggleClass( "active" )
+//         .next()
+//           .stop( true, true )
+//           .slideToggle();
+//     });
 
 
 // $.ajax({
