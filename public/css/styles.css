@@ -1,5 +1,7 @@
 body{
-  background-color: white;
+ background-image: url("../images/links.svg");
+    background-size: 10%;
+    background-repeat: repeat;
 }
 
 h1 {
@@ -29,6 +31,9 @@ label,#footerTitle {
     font-size: .8em;
     padding: 8px;
     float: left;
+      width: 15%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #submit:link {
@@ -47,6 +52,11 @@ label,#footerTitle {
 
 #gifs {
 	width: 130px;
+}
+
+#loadingGif {
+  margin-top: -100px;
+  width: 230px;
 }
 
 footer {
