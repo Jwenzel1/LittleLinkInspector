@@ -1,6 +1,16 @@
-
+var Bitly = require('bitly');
+var url = require('url');
+var vt = require("node-virustotal");
+var API_key = "c24164a9ec3b27c30f9ac9474edf2aced8b8bbcf";
+var bitly = new Bitly(API_key);
+var bitlyLink; //the given bit.ly link
 //reqires our Links model
 var db = require("../models");
+// var bitly = require("../javascript/bitly.js");
+var long_url; //the full url of the bit.ly link
+var domain; //used for storing the object returned by url.parse
+var domain_name; //the hostname of the given url
+
 
 module.exports = function(app){
 
@@ -13,8 +23,43 @@ module.exports = function(app){
 			   short_link: req.params.link
 		  }
 		}).then(function(dbLink){
-			console.log(dbLink[0].long_link);
-			res.json(dbLink[0].long_link)
+			if(dbLink.length == 0){
+				bitly.expand('http://bit.ly/2whIn2N')//replace with bitlyLink
+				  .then(function(response) {
+
+				    long_link = response.data.expand[0].long_url;
+				    short_link = response.data.expand[0].short_url;
+				    domain = url.parse(long_url, true);
+				    domain_name = domain.host;
+
+						db.Links.create({
+							short_link: short_link,
+							long_link: long_link,
+							domain_name: domain_name
+						}).then(function(dbLink){
+							console.log(dbLink[0].short_link);
+							console.log(dbLink[0].long_link);
+							console.log(dbLink[0].domain_name);
+							var info = {
+								short_link: short_link,
+								long_link: long_link,
+								domain_name: domain_name
+							}
+							res.json(info);
+						});
+
+				  }, function(error) {
+				     throw error;
+				  });
+			}
+			else{
+				var info = {
+								short_link: short_link,
+								long_link: long_link,
+								domain_name: domain_name
+							}
+							res.json(info);
+			}
 		});
 	})
 //POST route for inserting a bit.ly link into the database
@@ -40,7 +85,9 @@ module.exports = function(app){
 			res.json(dbLink);
 		});
 	});
+}
 
+// console.log(long_url, domain_name)
 // //test functions for each of the sequelize queries
 // 	function createTest(){
 // 		db.Links.create({
@@ -56,12 +103,12 @@ module.exports = function(app){
 // function findAllTest(){
 // 		db.Links.findAll({
 // 		  where: {
-// 				short_link: "http://bit.ly/2whIn2N"
+// 				short_link: ""
 // 			}	
 
 // 		}).then(function(dbLink){
-// 				console.log("")
-// 				console.log(dbLink[0].long_link);
+// 				console.log(dbLink)
+// 				// console.log(dbLink[0].long_link);
 // 		});
 // 	}	
 // 	function updateTest(){
@@ -77,5 +124,6 @@ module.exports = function(app){
 // 	}
 
 // 		setTimeout(createTest, 3000);
-// 		setTimeout(findAllTest, 6000);
+//		setTimeout(findAllTest, 6000);
+// findAllTest();
 // 		setTimeout(updateTest, 9000)
