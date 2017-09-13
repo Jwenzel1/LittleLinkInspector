@@ -60,6 +60,7 @@ function renderLinks(data) {
 			div.append($("<p><a target=\"_blank\">Domain name: " + data.domain_name + "</a></p>"));
 
 				// Safe/not bool
+				console.log(data);
 			if (data.malicious == 0) {
 				div.append($("<p>This site is safe.</p>"));
 				div.append($("<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i>"));
