@@ -1,4 +1,7 @@
 body{
+ background-image: url("links.svg");
+    background-size: 10%;
+    background-repeat: repeat;
     background-image: url("../images/links.svg");
     font-family: 'Roboto', sans-serif;
     background-size: 10%;
