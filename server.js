@@ -15,11 +15,11 @@ app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Set Handlebars.
-var exphbs = require("express-handlebars");
+// // Set Handlebars.
+// var exphbs = require("express-handlebars");
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+// app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+// app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
 require("./routes/api-routes.js")(app);
