@@ -4,6 +4,7 @@ body{
     background-size: 10%;
     background-repeat: repeat;
     font-size: 100%;
+
 }
 
 h1 {
@@ -70,13 +71,18 @@ label,#footerTitle {
 }
 
 footer {
-  position: absolute;
+/*  position: absolute;*/
   right: 0;
-  bottom: 0;
+
   left: 0;
-  padding: 1rem;
+  padding: 5rem;
   background-color: black;
   text-align: center;
+    height: 2em;
+
+    position: relative; /*//changed to relative from fixed also works if position is not there*/
+    width:100%;
+  bottom: -46rem;
 }
 
 #footerTitle {
