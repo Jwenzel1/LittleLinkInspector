@@ -3,6 +3,7 @@ body{
     font-family: 'Roboto', sans-serif;
     background-size: 10%;
     background-repeat: repeat;
+    font-size: 100%;
 }
 
 h1 {
@@ -29,8 +30,8 @@ label,#footerTitle {
     border: 1px solid #000;
     color: #000;
     margin-top: 5px;
-    font-size: .8em;
-    padding: 8px;
+    font-size: 1.2rem;
+    padding: 7px;
     float: left;
       width: 15%;
     margin-left: auto;
@@ -75,8 +76,18 @@ footer {
 }
 
 th {
-	padding: .6em;
+	padding: .01em;
 	text-align:center
+}
+
+#devTitles {
+  font-size: 1.8rem;
+  letter-spacing: .19rem;
+}
+
+#devNames {
+  font-size: 1.3rem;
+  letter-spacing: .3rem; 
 }
 
 table {
