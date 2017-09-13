@@ -47,11 +47,13 @@ function renderLinks(data) {
 			console.log(data);
 
 				// bitly link
-			div.append($("<h3>" + data.short_link + "</h3>"));
+			// div.append($("<h3\">" + data.short_link + "</h3>"));
 
 				//header for section
+
 			div.append($("<h2>Full URL</h2>"));
 
+			if (data.malicious == 0) {
 				// full link
 			div.append($("<h2><a href=" + data.long_link + " target=\"_blank\">" + data.long_link + "</a></h2>"));
 
@@ -63,16 +65,21 @@ function renderLinks(data) {
 
 				// Safe/not bool
 				console.log(data);
-			if (data.malicious == 0) {
+			
 
 				div.append($("<h3>This site is <b>safe </b><i class=\"fa fa-check\" id=\"checkMark\" aria-hidden=\"true\"></i></h3>"));
 
 			} else {
+				div.append($("<h2>" + data.long_link + "</h2>"));
+
+				// domain name
+				div.append($("<h3>Domain name:" + data.domain_name + "</h3>"));
+
 				div.append($("<h3>This site is <b>not safe <b><i class=\"fa fa-times-circle\" id=\"xMark\" aria-hidden=\"true\"></i></h3>"));
+
 			}
 
-			$("#allLinkRes").append(div);
-		
+			$("#allLinkRes").append(div).hide().fadeIn(2500);
 	};
 
 	} 
