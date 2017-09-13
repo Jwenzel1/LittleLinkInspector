@@ -16,7 +16,7 @@ var short_link
 var long_link; //the full url of the bit.ly link
 var domain; //used for storing the object returned by url.parse
 var domain_name; //the hostname of the given url
-var malicious = false; //boolean that is true if malicious, false if safe
+var malicious; //boolean that is true if malicious, false if safe
 var info; //returns all the data above
 
 //export everything to be used by the server
@@ -50,6 +50,7 @@ module.exports = function(app){
 
 			    	  //checks each of virus total's virus scanners and any of them says the website is malicious
 			    	  //then we declare that url to be malicious
+							malicious = false;
 			    	  for(scanner in data.scans){
 			    	  	console.log(scanner + ": " + data.scans[scanner].detected)
 			    	  	if(data.scans[scanner].detected)
@@ -61,12 +62,12 @@ module.exports = function(app){
 			    	  	}
 			    	  }
 					  console.log("");
-					 
+
 						db.Links.create({ //creates the record for the bitly link after the bitly API returns data, and the URL has been scanned
-							short_link: short_link,
-							long_link: long_link,
-							domain_name: domain_name,
-							malicious: malicious
+							"short_link": short_link,
+							"long_link": long_link,
+							"domain_name": domain_name,
+							"malicious": malicious
 						}).then(function(dbLink){
 							console.log("") //console log our data to make sure its correct
 							console.log("Bit.ly link: " + short_link);
@@ -75,17 +76,16 @@ module.exports = function(app){
 							console.log("Malicious: " + malicious);
 
 							var info = {
-								short_link: short_link,
-								long_link: long_link,
-								domain_name: domain_name,
-								malicious: malicious
+								"short_link": short_link,
+								"long_link": long_link,
+								"domain_name": domain_name,
+								"malicious": malicious
 							}
 
 							res.json(info);
 						});
 					}, function(error){
 					}); //end of submitUrlForScanning method
-
 				});//Closes the bit.ly expand method
 			}
 			//executes else statement if the bitly link is already in our database
@@ -98,17 +98,16 @@ module.exports = function(app){
 
 				//puts our info in an object to be returned as a response
 				var info = {
-					short_link: short_link,
-					long_link: long_link,
-					domain_name: domain_name,
-					malicious: malicious
+					"short_link": short_link,
+					"long_link": long_link,
+					"domain_name": domain_name,
+					"malicious": malicious
 				}
-					console.log("") //console logs our data to make sure its correct
-					console.log("Bit.ly link: " + info.short_link);
-					console.log("Full URL: " + info.long_link);
-					console.log("Domain name: " + info.domain_name);
-					console.log("Malicious: " + info.malicious);
-
+				console.log("") //console logs our data to make sure its correct
+				console.log("Bit.ly link: " + info.short_link);
+				console.log("Full URL: " + info.long_link);
+				console.log("Domain name: " + info.domain_name);
+				console.log("Malicious: " + info.malicious);
 				res.json(info); //gives a response with the data
 			}
 		}); //end of the .then function of the sequelize findAll method
