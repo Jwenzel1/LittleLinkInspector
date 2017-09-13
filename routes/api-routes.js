@@ -1,18 +1,17 @@
+//requires the bitly npm package
 var Bitly = require('bitly');
 var url = require('url');
-var vt = require("node-virustotal");
 var API_key = "c24164a9ec3b27c30f9ac9474edf2aced8b8bbcf";
 var bitly = new Bitly(API_key);
 
- //the given bit.ly link
-//reqires our Links model
-
+//requires the Virus Total npm package
+var vt = require("node-virustotal");
 var con = vt.MakePublicConnection();
 con.setKey("046ace4470931392168279685fbff5a2bc4a6645f019796c04f2b9b8dbc10bec");
 con.setDelay(15000);
 
+//reqires our Links model
 var db = require("../models");
-// var bitly = require("../javascript/bitly.js");
 var short_link
 var long_link; //the full url of the bit.ly link
 var domain; //used for storing the object returned by url.parse
@@ -20,7 +19,7 @@ var domain_name; //the hostname of the given url
 var malicious = false; //boolean that is true if malicious, false if safe
 var info; //returns all the data above
 
-
+//export everything to be used by the server
 module.exports = function(app){
 
 //GET route for finding a bit.ly long_link in the database when a short_link is entered
@@ -52,10 +51,9 @@ module.exports = function(app){
 			    	  //checks each of virus total's virus scanners and any of them says the website is malicious
 			    	  //then we declare that url to be malicious
 			    	  for(scanner in data.scans){
-			    	  	
+			    	  	console.log(scanner + ": " + data.scans[scanner].detected)
 			    	  	if(data.scans[scanner].detected)
 			    	  	{
-			    	  		console.log(data);
 			    	  		malicious = data.scans[scanner].detected;
 			    	  		console.log("")
 			    	  		console.log(scanner + " determined that: " + long_link + " is malicious");
@@ -64,15 +62,14 @@ module.exports = function(app){
 	
 			    	  }
 					  console.log("");
-					  
-					  
+					 
 						db.Links.create({ //creates the record for the bitly link after the bitly API returns data, and the URL has been scanned
 							short_link: short_link,
 							long_link: long_link,
 							domain_name: domain_name,
 							malicious: malicious
 						}).then(function(dbLink){
-							console.log("")
+							console.log("") //console log our data to make sure its correct
 							console.log("Bit.ly link: " + short_link);
 							console.log("Full URL: " + long_link);
 							console.log("Domain name: " + domain_name);
@@ -84,7 +81,6 @@ module.exports = function(app){
 								domain_name: domain_name,
 								malicious: malicious
 							}
-							console.log("This is info: " + info);
 
 							res.json(info);
 						});
@@ -92,96 +88,31 @@ module.exports = function(app){
 					}, function(error){
 					}); //end of submitUrlForScanning method
 
-			  // }, function(error) { 
-			  //    throw error;
-			  // 	}); //end of the .then function for bit.ly expand method
-
-			  
 				});//Closes the bit.ly expand method
 			}
+			//executes else statement if the bitly link is already in our database
 			else{
-				
+				//stores the values from the database into the variables we'll be sending to our page
 			    short_link = dbLink[0].dataValues.short_link;
 			    long_link = dbLink[0].dataValues.long_link;
 			    domain_name = dbLink[0].dataValues.domain_name;
 			    malicious = dbLink[0].dataValues.malicious;
-						
+				
+				//puts our info in an object to be returned as a response		
 				var info = {
 					short_link: short_link,
 					long_link: long_link,
 					domain_name: domain_name,
 					malicious: malicious
 				}
-					console.log("")
-					console.log("Bit.ly link: " + short_link);
-					console.log("Full URL: " + long_link);
-					console.log("Domain name: " + domain_name);
-					console.log("Malicious: " + malicious);
+					console.log("") //console logs our data to make sure its correct
+					console.log("Bit.ly link: " + info.short_link);
+					console.log("Full URL: " + info.long_link);
+					console.log("Domain name: " + info.domain_name);
+					console.log("Malicious: " + info.malicious);
 
 				res.json(info); //gives a response with the data 
 			}
 		}); //end of the .then function of the sequelize findAll method
 	}); //end of the GET request
-}
-
-
-// console.log(long_url, domain_name)
-// //test functions for each of the sequelize queries
-// 	function createTest(){
-// 		db.Links.create({
-// 			short_link: "http://bit.ly/2whIn2N",
-// 			long_link: "https://secure-garden-74394.herokuapp.com/",
-// 			domain_name: "test.com"
-// 		}).then(function(dbLink){
-// 			console.log("")
-// 			console.log(dbLink);
-// 		});
-// 	}	
-
-// function findAllTest(){
-// 		db.Links.findAll({
-// 		  where: {
-// 				short_link: ""
-// 			}	
-
-// 		}).then(function(dbLink){
-// 				console.log(dbLink)
-// 				// console.log(dbLink[0].long_link);
-// 		});
-// 	}	
-// 	function updateTest(){
-// 		db.Links.update({
-// 			safe:true
-//     	}, {
-//       where: {
-//         short_link: "http://bit.ly/2whIn2N" //replace this with the bit.ly link sent to the :safe parameter
-//       }
-// 		}).then(function(dbLink){
-// 			console.log(dbLink);
-// 		});
-// 	}
-
-// 		setTimeout(createTest, 3000);
-//		setTimeout(findAllTest, 6000);
-// 		findAllTest();
-// 		setTimeout(updateTest, 9000)
-		// urlScanTest();
-	// 	long_link = "google.com"
-	// con.submitUrlForScanning(long_link, function(data){ //sends the long_link for scanning
-	// 	  console.log(long_link + " has been submitted for scanning");
-	// 	  console.log("")	
-	// 	  // console.dir(data);
-
-	// 	  con.retrieveUrlAnalysis(long_link, function(data){ //keeps checking to see if the submitted URL has been analyzed then returns the result
-	// 	  	malicious = data.scans["Google Safebrowsing"].detected;
-	// 	  	console.log(long_link + " has been sucessfully scanned");
-	// 	  	console.log("")
-	// 		// console.dir(data);
-	// 		console.log("Result from Google Safebrowsing: Malicious = " + data.scans["Google Safebrowsing"].detected);
-
-	// 	  }, function(err){
-	// 	    console.error(err);
-	// 	  }); //end of retrieveUrlAnalysis method
-	// 	 }, function(error) { 
-	// 		     throw error;
-	// });
+}//end of module exports
