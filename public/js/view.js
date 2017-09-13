@@ -47,6 +47,9 @@ function renderLinks(data) {
 			var div = $("<div>");
 			console.log(data);
 
+				// bitly link
+			div.append($("<h3>" + data.short_link + "</h3>"));
+
 				//header for section
 			div.append($("<h2>Full URL</h2>"));
 
@@ -70,6 +73,8 @@ function renderLinks(data) {
 			}
 
 			$("#allLinkRes").append(div);
+		
+	};
+
 	} 
-};
 
