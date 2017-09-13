@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS bitly_db;
+CREATE DATABASE bitly_db;
+USE bitly_db;

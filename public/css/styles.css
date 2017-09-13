@@ -1,15 +1,12 @@
 body{
-<<<<<<< HEAD
  background-image: url("links.svg");
     background-size: 10%;
     background-repeat: repeat;
-=======
     background-image: url("../images/links.svg");
     font-family: 'Roboto', sans-serif;
     background-size: 10%;
     background-repeat: repeat;
     font-size: 100%;
->>>>>>> e47c9dcfba772ad1a71361a1d5499e3ff5d79b70
 }
 
 h1 {
@@ -63,7 +60,7 @@ label,#footerTitle {
 }
 
 #loadingGif {
-  margin-top: -100px;
+  margin-top: -50px;
   width: 230px;
 }
 
