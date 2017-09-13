@@ -61,6 +61,14 @@ label,#footerTitle {
   width: 230px;
 }
 
+#checkMark {
+  color: #93FF2D;
+}
+
+#xMark {
+  color: #FF0000;
+}
+
 footer {
   position: absolute;
   right: 0;

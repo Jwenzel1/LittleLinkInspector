@@ -62,37 +62,14 @@ function renderLinks(data) {
 				// Safe/not bool
 				console.log(data);
 			if (data.malicious == 0) {
-				div.append($("<h3>This site is <b>safe</b>.</h3>"));
-				div.append($("<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i>"));
+
+				div.append($("<h3>This site is <b>safe </b><i class=\"fa fa-check\" id=\"checkMark\" aria-hidden=\"true\"></i></h3>"));
+
 			} else {
-				div.append($("<h3>This site is <b>not safe<b>.</h3>"));
-				div.append($("<i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>"));
+				div.append($("<h3>This site is <b>not safe <b><i class=\"fa fa-times-circle\" id=\"xMark\" aria-hidden=\"true\"></i></h3>"));
 			}
 
 			$("#allLinkRes").append(div);
 	} 
 };
 
-
-// footer on hover event
-// $( "footerTitle" )
-//   .filter( ":odd" )
-//     .hide()
-//   .end()
-//   .filter( ":even" )
-//     .hover(function() {
-//       $( this )
-//         .toggleClass( "active" )
-//         .next()
-//           .stop( true, true )
-//           .slideToggle();
-//     });
-
-
-// $.ajax({
-//       url: queryURL,
-//       method: "GET"
-//     }).done(function(response() {
-//       console.log(response);
-//       console.log(response.Runtime);
-//     }));
