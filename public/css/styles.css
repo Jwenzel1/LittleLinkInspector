@@ -1,7 +1,15 @@
 body{
+<<<<<<< HEAD
  background-image: url("links.svg");
     background-size: 10%;
     background-repeat: repeat;
+=======
+    background-image: url("../images/links.svg");
+    font-family: 'Roboto', sans-serif;
+    background-size: 10%;
+    background-repeat: repeat;
+    font-size: 100%;
+>>>>>>> e47c9dcfba772ad1a71361a1d5499e3ff5d79b70
 }
 
 h1 {
@@ -28,9 +36,12 @@ label,#footerTitle {
     border: 1px solid #000;
     color: #000;
     margin-top: 5px;
-    font-size: .8em;
-    padding: 8px;
+    font-size: 1.2rem;
+    padding: 7px;
     float: left;
+      width: 15%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #submit:link {
@@ -51,23 +62,43 @@ label,#footerTitle {
 	width: 130px;
 }
 
+#loadingGif {
+  margin-top: -100px;
+  width: 230px;
+}
+
 footer {
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #efefef;
+  background-color: black;
   text-align: center;
 }
 
+#footerTitle {
+    color: white;
+}
+
 th {
-	padding: .6em;
+	padding: .01em;
 	text-align:center
+}
+
+#devTitles {
+  font-size: 1.8rem;
+  letter-spacing: .19rem;
+}
+
+#devNames {
+  font-size: 1.3rem;
+  letter-spacing: .3rem; 
 }
 
 table {
 	table-layout: fixed;
 	width: 100%;
+  color: white;
 }
 

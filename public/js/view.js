@@ -22,6 +22,10 @@ $("#submit").on("click", function(event) {
 			//if what was submitted == bitly link
 			console.log("You have entered a valid 'bit.ly' address at: " + bitlyIn + "!");
 
+			$("#allLinkRes").empty();
+			$("#allLinkRes").append($("<img id=\"loadingGif\" src=\"images/loading.gif\">"))
+
+
 			//API get on what was submitted
 			$.get("/api/links/" + encodeURIComponent(bitlyIn), function(data) {
 				//Bitly long link
@@ -71,10 +75,14 @@ function renderLinks(data) {
 
 			$("#allLinkRes").append(div);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 =======
 >>>>>>> 55a3fae120945ac068c46d24e3611f615f82c151
 	};
+=======
+	} 
+>>>>>>> e47c9dcfba772ad1a71361a1d5499e3ff5d79b70
 };
 
 
