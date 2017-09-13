@@ -45,18 +45,19 @@ function renderLinks(data) {
 
 	
 			var div = $("<div>");
+			console.log(data);
 
 				//header for section
 			div.append($("<h2>Actual URL</h2>"));
 
-				// bitly link
-			div.append($("<h3>" + data.short_link + "</h3>"));
-
 				// full link
-			div.append($("<p>Full link: " + data.long_link + "</p>"));
+			div.append($("<h2><a href=data.long_link target=\"_blank\">" + data.long_link + "</a></h2>"));
+
+				// bitly link
+			div.append($("<h3><a target=\"_blank\">" + data.short_link + "</a></h3>"));
 
 				// domain name
-			div.append($("<p>Domain name: " + data.domain_name + "</p>"));
+			div.append($("<p><a target=\"_blank\">Domain name: " + data.domain_name + "</a></p>"));
 
 				// Safe/not bool
 			if (data.malicious == 0) {
