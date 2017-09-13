@@ -48,24 +48,24 @@ function renderLinks(data) {
 			console.log(data);
 
 				//header for section
-			div.append($("<h2>Actual URL</h2>"));
+			div.append($("<h2>Full URL</h2>"));
 
 				// full link
-			div.append($("<h2><a href=data.long_link target=\"_blank\">" + data.long_link + "</a></h2>"));
+			div.append($("<h2><a href=" + data.long_link + " target=\"_blank\">" + data.long_link + "</a></h2>"));
 
 				// bitly link
-			div.append($("<h3><a target=\"_blank\">" + data.short_link + "</a></h3>"));
+			// div.append($("<h3><a href=" + data.short_link + " target=\"_blank\">" + data.short_link + "</a></h3>"));
 
 				// domain name
-			div.append($("<p><a target=\"_blank\">Domain name: " + data.domain_name + "</a></p>"));
+			div.append($("<h3>Domain name: <a href=" + data.domain_name + " target=\"_blank\">" + data.domain_name + "</a></h3>"));
 
 				// Safe/not bool
 				console.log(data);
 			if (data.malicious == 0) {
-				div.append($("<p>This site is safe.</p>"));
+				div.append($("<h3>This site is <b>safe</b>.</h3>"));
 				div.append($("<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i>"));
 			} else {
-				div.append($("<p>This site is not safe.</p>"));
+				div.append($("<h3>This site is <b>not safe<b>.</h3>"));
 				div.append($("<i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>"));
 			}
 
