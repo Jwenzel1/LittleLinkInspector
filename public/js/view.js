@@ -42,9 +42,18 @@ function renderLinks(data) {
 	
 			var div = $("<div>");
 
+<<<<<<< HEAD
 				// bitly link
 			div.append($("<h3>" + data.short_link + "</h3>"));
 
+=======
+				//header for section
+			div.append($("<h2>Actual URL</h2>"));
+
+				// bitly link
+			div.append($("<h3>" + data.short_link + "</h3>"));
+
+>>>>>>> 55a3fae120945ac068c46d24e3611f615f82c151
 				// full link
 			div.append($("<p>Full link: " + data.long_link + "</p>"));
 
@@ -61,7 +70,10 @@ function renderLinks(data) {
 			}
 
 			$("#allLinkRes").append(div);
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 55a3fae120945ac068c46d24e3611f615f82c151
 	};
 };
 

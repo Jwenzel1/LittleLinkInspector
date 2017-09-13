@@ -1,5 +1,7 @@
 body{
-  background-color: white;
+ background-image: url("links.svg");
+    background-size: 10%;
+    background-repeat: repeat;
 }
 
 h1 {
