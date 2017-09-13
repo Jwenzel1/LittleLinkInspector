@@ -49,11 +49,13 @@ module.exports = function(app){
 			    	con.UrlEvaluation(long_link, function(data){ //sends the long_link for scanning
 			    	  // malicious = data.scans["Google Safebrowsing"].detected;
 			    	  
+			    	  //checks each of virus total's virus scanners and any of them says the website is malicious
+			    	  //then we declare that url to be malicious
 			    	  for(scanner in data.scans){
 			    	  	
 			    	  	if(data.scans[scanner].detected)
 			    	  	{
-			    	  		
+			    	  		console.log(data);
 			    	  		malicious = data.scans[scanner].detected;
 			    	  		console.log("")
 			    	  		console.log(scanner + " determined that: " + long_link + " is malicious");
@@ -71,10 +73,10 @@ module.exports = function(app){
 							malicious: malicious
 						}).then(function(dbLink){
 							console.log("")
-							console.log("Bit.ly link: " + dbLink.dataValues.short_link);
-							console.log("Full URL: " + dbLink.dataValues.long_link);
-							console.log("Domain name: " + dbLink.dataValues.domain_name);
-							console.log("Malicious: " + dbLink.dataValues.malicious);
+							console.log("Bit.ly link: " + short_link);
+							console.log("Full URL: " + long_link);
+							console.log("Domain name: " + domain_name);
+							console.log("Malicious: " + malicious);
 
 							var info = {
 								short_link: short_link,
@@ -82,6 +84,7 @@ module.exports = function(app){
 								domain_name: domain_name,
 								malicious: malicious
 							}
+							console.log("This is info: " + info);
 
 							res.json(info);
 						});
@@ -97,10 +100,11 @@ module.exports = function(app){
 				});//Closes the bit.ly expand method
 			}
 			else{
-			    long_link = dbLink[0].short_link;
-			    short_link = dbLink[0].long_link;
-			    domain_name = dbLink[0].domain_name;
-			    malicious = dbLink[0].malicious;
+				
+			    short_link = dbLink[0].dataValues.short_link;
+			    long_link = dbLink[0].dataValues.long_link;
+			    domain_name = dbLink[0].dataValues.domain_name;
+			    malicious = dbLink[0].dataValues.malicious;
 						
 				var info = {
 					short_link: short_link,
@@ -108,6 +112,12 @@ module.exports = function(app){
 					domain_name: domain_name,
 					malicious: malicious
 				}
+					console.log("")
+					console.log("Bit.ly link: " + short_link);
+					console.log("Full URL: " + long_link);
+					console.log("Domain name: " + domain_name);
+					console.log("Malicious: " + malicious);
+
 				res.json(info); //gives a response with the data 
 			}
 		}); //end of the .then function of the sequelize findAll method
