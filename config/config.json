@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
+    "password": "IAmR00t!",
     "database": "bitly_db",
     "host": "localhost",
     "dialect": "mysql"
@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "ovkje4nnt6lwd2tt",
+    "password": "k6zfyeigd15kr0vl",
+    "database": "pc2tj6su8kum902w",
+    "host": "ysp9sse09kl0tzxj.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
