@@ -42,7 +42,7 @@ function renderLinks(data) {
 		$("#allLinkRes").empty();
 		$("#allLinkRes").show();
 
-	
+
 			var div = $("<div>");
 			console.log(data);
 
@@ -65,7 +65,7 @@ function renderLinks(data) {
 
 				// Safe/not bool
 				console.log(data);
-			
+
 
 				div.append($("<h3>This site is <b>safe </b><i class=\"fa fa-check\" id=\"checkMark\" aria-hidden=\"true\"></i></h3>"));
 
@@ -82,5 +82,4 @@ function renderLinks(data) {
 			$("#allLinkRes").append(div).hide().fadeIn(2500);
 	};
 
-	} 
-
+	}
