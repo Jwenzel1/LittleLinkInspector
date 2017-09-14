@@ -23,9 +23,11 @@ $("a").hover(
         $popupDiv.append(longLink);
         if(malicious){
           $popupDiv.append(safeText.text("Malicious"));
+           $popupDiv.append($("<i class=\"fa fa-times-circle\" id=\"xMark\" aria-hidden=\"true\"></i>"));
         }
         else{
           $popupDiv.append(safeText.text("Safe"));
+          $popupDiv.append($("<i class=\"fa fa-check\" id=\"checkMark\" aria-hidden=\"true\"></i>"));
         }
       });
     }
