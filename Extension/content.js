@@ -2,7 +2,7 @@ var url = "https://guarded-wave-66271.herokuapp.com/api/links/";
 $("a").hover(
   function(event){ // Runs when the mouse enters an element
     console.log($(this).attr("href").includes("bit.ly/"));
-    if($(this).attr("href").includes("bit.ly/")){
+    if($(this).attr("href").includes("bit.ly/") || $(this).text().includes("bit.ly/")){
       var $popupDiv = $("<div>");
       $popupDiv.css({
         "top": event.clientY + "px",
