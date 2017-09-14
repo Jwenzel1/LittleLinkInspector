@@ -78,6 +78,7 @@ label,#footerTitle {
 
 footer {
 <<<<<<< HEAD
+<<<<<<< HEAD
   right: 0;
   left: 0;
   padding: 10px;
@@ -91,6 +92,11 @@ footer {
   text-align: center;
   width:100%;
 >>>>>>> d548503e94034a3f57c5b7e6e597c4cce0cde037
+=======
+  background-color: black;
+  text-align: center;
+  width:100%;
+>>>>>>> 3ba5ba4baf4db6eb969ce9ea5de4cf003511d1d6
 }
 
 #footerTitle {
@@ -119,6 +125,7 @@ table {
   color: white;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 .clearfix:after {
   content: "";
@@ -127,3 +134,5 @@ table {
 }
 =======
 >>>>>>> d548503e94034a3f57c5b7e6e597c4cce0cde037
+=======
+>>>>>>> 3ba5ba4baf4db6eb969ce9ea5de4cf003511d1d6
