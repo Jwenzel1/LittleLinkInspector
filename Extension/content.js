@@ -12,7 +12,8 @@ $("a").hover(
       $popupDiv.append($("<p>Getting Link Data</p>"));
       $popupDiv.append($("<img>").attr("src", chrome.runtime.getURL("images/DontPanic.jpg")));
       $("body").append($popupDiv);
-      $.get(url + encodeURIComponent($(this).attr("href")), function(response){
+      var bitly = $(this).attr("href").includes("bit.ly/") ? encodeURIComponent($(this).attr("href")) : encodeURIComponent($(this).text());
+      $.get(url + bitly, function(response){
         var longLink = $("<p>").text("Long URL: " + response.domain_name);
         var safeText = $("<p>");
         var malicious = response.malicious;
