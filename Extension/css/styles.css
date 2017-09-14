@@ -20,6 +20,15 @@
   margin: 0px;
   font-weight: bold;
 }
+#checkMark {
+  color: #93FF2D;
+  background-color: black;
+}
+
+#xMark {
+  color: #FF0000;
+  background-color: black;
+}
 /*#linkInspector{
   font-weight: bold;
   position: absolute;

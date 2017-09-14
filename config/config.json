@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "IAmR00t!",
+    "password": "password",
     "database": "bitly_db",
     "host": "localhost",
     "dialect": "mysql"
