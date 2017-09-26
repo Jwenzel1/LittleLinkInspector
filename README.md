@@ -1,6 +1,6 @@
 # LittleLinkInspector
 Description: 
-This is a node app that allows the user to enter a bit.ly link, and returns the fully resolved URL of that link, and whether or not it's safe. All data is are stored in a SQL database using sequelize.js. 
+This is a node app that allows the user to enter a bit.ly link, and returns the fully resolved URL of that link, and whether or not it's safe. All data is are stored in a SQL database using sequelize.js. It's paired with a Google Chrome extension.
 
 Responsibilities
 Ahmer: Backend- listen for get request from server. Use sequelize to implement storing bit.ly urls, long form urls, user account information, votes, etc. Checks to see if link is in database, if yes then pull information and send it for front end to receive, if not then call bit.ly API, and send that information to the database. Create 
